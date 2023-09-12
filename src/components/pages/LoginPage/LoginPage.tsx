@@ -53,6 +53,9 @@ const Login = () => {
       <Paper elevation={10} style={paperStyle}>
         <Grid>
           <h2>Sign In</h2>
+          <p>Default login:</p>
+          <p>email: admin@example.com</p>
+          <p>pw: 1234</p>
         </Grid>
 
         <Formik
