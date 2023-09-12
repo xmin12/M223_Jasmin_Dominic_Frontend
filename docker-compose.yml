@@ -2,9 +2,6 @@ version: '3.7'
 
 services:
   frontend:
-    mem_limit: 128m
-    cpus: 0.1
-
     restart: unless-stopped
     image: #todo
     container_name: frontend
@@ -13,9 +10,6 @@ services:
     ports:
       - 3000:80
   backend:
-    mem_limit: 512M
-    cpus: 0.2
-
     restart: unless-stopped
     image: #todo
     container_name: backend
@@ -26,9 +20,6 @@ services:
     depends_on:
       - db
   db:
-    mem_limit: 128m
-    cpus: 0.05
-
     restart: unless-stopped
     image: 'postgres:10-alpine'
     container_name: db
