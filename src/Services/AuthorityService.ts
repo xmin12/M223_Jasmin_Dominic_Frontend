@@ -1,7 +1,8 @@
+import authorities from '../config/Authorities';
 import { Authority } from '../types/models/Authority.model';
 import { Role } from '../types/models/Role.model';
 
-const authoritySet = new Set();
+const authoritySet = new Set<authorities>();
 
 const AuthorityService = {
   initAuthoritySet: (
@@ -14,12 +15,14 @@ const AuthorityService = {
       });
     });
   },
-  hasAuthority: (authority: Authority) => {
+  hasAuthority: (authority: authorities) => {
     AuthorityService.initAuthoritySet();
+
     return authoritySet.has(authority);
   },
-  hasAuthorities: (authorities: Authority[]) => {
+  hasAuthorities: (authorities: authorities[]) => {
     AuthorityService.initAuthoritySet();
+
     for (const element of authorities) {
       if (!authoritySet.has(element)) {
         return false;
@@ -27,7 +30,7 @@ const AuthorityService = {
     }
     return true;
   },
-  hasAnyAuthority: (authorities: Authority[]) => {
+  hasAnyAuthority: (authorities: authorities[]) => {
     for (const element of authorities) {
       if (authoritySet.has(element)) {
         return true;
