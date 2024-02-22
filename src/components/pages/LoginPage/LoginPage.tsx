@@ -20,8 +20,8 @@ const validationSchema = Yup.object().shape({
 
 const Login = () => {
   const paperStyle = {
-    padding: 20,
-    height: '70vh',
+    padding: 60,
+    height: '35vh',
     width: 280,
     margin: '20px auto',
   };
@@ -33,7 +33,6 @@ const Login = () => {
     login(values.email.toLowerCase(), values.password)
       .then(() => {
         console.log(values);
-
         navigate('/');
       })
       .catch((error) => {
