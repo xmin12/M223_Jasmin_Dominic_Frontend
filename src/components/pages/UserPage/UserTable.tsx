@@ -1,14 +1,14 @@
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import { useEffect, useState } from 'react';
-import { User } from '../../../types/models/User.model';
+import React, { useEffect, useState } from 'react';
+import { Card, CardActions, CardContent, Button } from '@mui/material';
 import UserService from '../../../Services/UserService';
-import { useNavigate } from 'react-router-dom';
+import { User } from '../../../types/models/User.model';
 
-const UserTable = () => {
-  const navigate = useNavigate();
+
+interface UserTableProps {
+  onEdit: (user: User) => void; // Define the onEdit prop
+}
+
+const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
@@ -17,56 +17,43 @@ const UserTable = () => {
     });
   }, []);
 
-  const handleAdd = () => {
-    navigate('../useredit/');
-  };
-
-  const handleEdit = (id: string) => {
-    navigate('../useredit/' + id);
-  };
-
   const handleDelete = (id: string) => {
-    UserService.deleteUser(id);
+    UserService.deleteUser(id).then(() => {
+      setUsers(users.filter((user) => user.id !== id));
+    });
   };
 
   return (
-    <>
-      {users.map((user) => (
-        <div key={user.id}>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              {user.firstName} {user.lastName} {user.email}
-              <CardActions>
-                <Button
-                  size='small'
-                  color='primary'
-                  variant='contained'
-                  onClick={() => handleEdit(user.id)}
-                >
-                  Edit
-                </Button>
-                <Button
-                  size='small'
-                  color='error'
-                  variant='contained'
-                  onClick={() => handleDelete(user.id)}
-                >
-                  Delete
-                </Button>
-              </CardActions>
-            </CardContent>
-          </Card>
-        </div>
-      ))}
-      <Button
-        size='small'
-        color='success'
-        variant='contained'
-        onClick={handleAdd}
-      >
-        Add
-      </Button>
-    </>
+      <>
+        {users.map((user) => (
+            <div key={user.id}>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  {user.firstName} {user.lastName} {user.email}
+                  <CardActions>
+                    <Button
+                        size='small'
+                        color='primary'
+                        variant='contained'
+                        onClick={() => (user)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                        size='small'
+                        color='error'
+                        variant='contained'
+                        onClick={() => handleDelete(user.id)}
+
+                    >
+                      Delete
+                    </Button>
+                  </CardActions>
+                </CardContent>
+              </Card>
+            </div>
+        ))}
+      </>
   );
 };
 

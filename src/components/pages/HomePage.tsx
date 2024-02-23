@@ -9,15 +9,16 @@ export default function HomePage() {
         <Box>
          <Navbar/>
             <Box
+                style={{padding: '180px'}}
                 display='flex'
                 alignItems='center'
                 justifyContent='center'
                 flexDirection={'column'}
             >
-                <h1>Welcome to the groupe 6 Project</h1>
+                <h1>Welcome to the group 6 Custom List Project</h1>
                 <img
                     src={logo}
-                    style={{filter: 'invert(100%)'}}
+                    style={{filter: 'invert(100%)', padding: '50px'}}
                     className='App-logo'
                     alt='logo'
                 />

@@ -29,9 +29,11 @@ const Router = () => {
 
 
 
+
+
         <Route
         path={'/users'}
-        element={<PrivateRoute requiredAuths={[]} element={<UserTable />} />}
+        element={<PrivateRoute requiredAuths={[]} element={<UserTable onEdit={() => {}} />} />}
       />
       <Route
         path='/useredit'
