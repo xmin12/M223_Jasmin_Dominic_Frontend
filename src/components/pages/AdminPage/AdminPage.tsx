@@ -1,21 +1,32 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Typography} from '@mui/material';
+import {Button, Typography} from '@mui/material';
 import ActiveUserContext from '../../../Contexts/ActiveUserContext';
-
 import Navbar from "../../../Router/Navbar";
 import UserTable from "../UserPage/UserTable";
+import UserEditPage from "../UserPage/UserEditPage";
+import UserForm from "../../molecules/UserForm/UserForm";
+import {User} from "../../../types/models/User.model";
+
 
 
 // Define the AdminPage component
 const AdminPage = () => {
-    // Use the useContext hook to access the ActiveUserContext
-    const {user, loadActiveUser} = useContext(ActiveUserContext);
-    // State to manage the dialog visibility
+    const { user } = useContext(ActiveUserContext);
+    const [editingUser, setEditingUser] = useState<User | null>(null);
 
-    useEffect(() => {
-        loadActiveUser();
-    }, []);
+    const handleEditUser = (user: User) => {
+        setEditingUser(user);
+    };
 
+    const handleCloseForm = () => {
+        setEditingUser(null);
+    };
+
+    const handleSubmitForm = (updatedUser: User) => {
+        // Handle form submission logic here
+        console.log("Updated user:", updatedUser);
+        handleCloseForm(); // Close the form after submission
+    };
     // Render the AdminPage component
     return (
         <>

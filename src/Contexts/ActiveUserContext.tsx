@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, {createContext, useCallback, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../config/Api";
 import roles from "../config/Roles";
@@ -148,13 +148,14 @@ export const ActiveUserContextProvider = ({
    * Request the user data for the currently active user from the api
    * and save it to the context-state.
    */
-  const loadActiveUser = () => {
+  const loadActiveUser = useCallback(() => {
     return user
-      ? UserService.getUser(user.id).then((res: any) => {
+        ? UserService.getUser(user.id).then((res: any) => {
           setActiveUser(res);
         })
-      : null;
-  };
+        : null;
+  }, [user]);
+
 
   function activeUserHasRole(roleToCheck: keyof typeof roles): boolean {
     return user ? user.roles.some((role) => role.name === roleToCheck) : false;

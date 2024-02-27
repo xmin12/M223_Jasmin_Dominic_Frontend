@@ -3,11 +3,12 @@ import { User } from '../types/models/User.model';
 
 const UserService = {
   getUser: async (userID: string): Promise<User> => {
-    const { data } = await api.get<User>(`/user/${userID}`);
-    return data;
+    const response = await api.get<User>(`/user/${userID}`);
+    return response.data;
   },
 
   updateUser: (user: User) => {
+    console.log("",user)
     return api.put(`/user/${user.id}`, user);
   },
 
@@ -17,8 +18,9 @@ const UserService = {
     });
   },
 
-  getAllUsers: () => {
-    return api.get(`/user`);
+  getAllUsers: async (): Promise<User[]> => {
+    const response = await api.get<User[]>('/user');
+    return response.data;
   },
 
   deleteUser: (id: string) => {

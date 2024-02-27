@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardActions, CardContent, Button } from '@mui/material';
+import { Card, CardActions, CardContent, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import UserService from '../../../Services/UserService';
 import { User } from '../../../types/models/User.model';
-
+import UserForm from "../../molecules/UserForm/UserForm";
 
 interface UserTableProps {
   onEdit: (user: User) => void; // Define the onEdit prop
@@ -10,10 +10,11 @@ interface UserTableProps {
 
 const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
   const [users, setUsers] = useState<User[]>([]);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
 
   useEffect(() => {
     UserService.getAllUsers().then((data) => {
-      setUsers(data.data);
+      setUsers(data);
     });
   }, []);
 
@@ -22,6 +23,33 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
       setUsers(users.filter((user) => user.id !== id));
     });
   };
+
+  const handleEdit = (user: User) => {
+    setEditingUser(user);
+  };
+
+  const handleCloseForm = () => {
+    setEditingUser(null);
+  };
+  const handleSave = (updatedUser: User) => {
+    const updatedUsers = [...users];
+    const index = updatedUsers.findIndex((user) => user.id === updatedUser.id);
+    if (index !== -1) {
+      updatedUsers[index] = updatedUser;
+      // Call the API to update the user
+      UserService.updateUser(updatedUser)
+          .then(() => {
+            setUsers(updatedUsers);
+            onEdit(updatedUser);
+            handleCloseForm();
+          })
+          .catch((error) => {
+            console.error('Error updating user:', error);
+            // Handle error as needed
+          });
+    }
+  };
+
 
   return (
       <>
@@ -35,7 +63,7 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
                         size='small'
                         color='primary'
                         variant='contained'
-                        onClick={() => (user)}
+                        onClick={() => handleEdit(user)}
                     >
                       Edit
                     </Button>
@@ -44,7 +72,6 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
                         color='error'
                         variant='contained'
                         onClick={() => handleDelete(user.id)}
-
                     >
                       Delete
                     </Button>
@@ -53,6 +80,22 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
               </Card>
             </div>
         ))}
+        <Dialog open={Boolean(editingUser)} onClose={handleCloseForm}>
+          <DialogTitle>Edit User</DialogTitle>
+          <DialogContent>
+            {editingUser && (
+                <UserForm
+                    user={editingUser}
+                    submitActionHandler={handleSave}
+                />
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseForm} color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
       </>
   );
 };

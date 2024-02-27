@@ -7,6 +7,8 @@ import authorities from '../config/Authorities';
 import HomePage from "../components/pages/HomePage";
 import ListPage from "../components/pages/ListPage/ListPage";
 import AdminPage from "../components/pages/AdminPage/AdminPage";
+import UserEditPage from "../components/pages/UserPage/UserEditPage";
+import UserForm from "../components/molecules/UserForm/UserForm";
 
 /**
  * Router component renders a route switch with all available pages
@@ -24,11 +26,7 @@ const Router = () => {
         <Route path={'/'} element={<HomePage />} />
         <Route path={'/lists'} element={<ListPage/>} />
         <Route path={'/admin'} element={<AdminPage/>} />
-
-
-
-
-
+        <Route path={'/edit'} element={<UserEditPage/>} />
 
 
         <Route
