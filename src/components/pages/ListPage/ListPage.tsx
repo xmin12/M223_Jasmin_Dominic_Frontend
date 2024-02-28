@@ -8,6 +8,7 @@ import { Button, TextField, IconButton, CardActions } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { ListEntry } from '../../../types/models/ListEntry.model';
 import ListService from '../../../Services/ListService';
+import SaveButton from "../../atoms/SaveButton";
 
 const ListPage: React.FC = () => {
     const initialListEntries: ListEntry[] = [];
@@ -46,7 +47,7 @@ const ListPage: React.FC = () => {
             console.error('Error creating list entry:', error);
         }
     };
-    
+
     const handleCancel = () => {
         setNewEntry({ // Reset form fields
             title: "",
@@ -120,14 +121,14 @@ const ListPage: React.FC = () => {
                                     onChange={handleChange}
                                     inputProps={{ min: "1", max: "5" }}
                                 />
-                                <Button
+                                <SaveButton
                                     data-cy="list-save-button"
                                     variant="contained"
                                     color="primary"
                                     onClick={handleSubmit}
                                 >
                                     Save
-                                </Button>
+                                </SaveButton>
                                 <Button
                                     data-cy="list-cancel-button"
                                     variant='contained'

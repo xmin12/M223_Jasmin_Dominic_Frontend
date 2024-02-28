@@ -9,7 +9,7 @@ export default function HomePage() {
         <Box>
          <Navbar/>
             <Box
-                style={{padding: '180px'}}
+                style={{padding: '130px'}}
                 display='flex'
                 alignItems='center'
                 justifyContent='center'
