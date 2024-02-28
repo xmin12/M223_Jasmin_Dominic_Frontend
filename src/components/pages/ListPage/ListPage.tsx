@@ -13,17 +13,11 @@ import SaveButton from "../../atoms/SaveButton";
 const ListPage: React.FC = () => {
     // Initialize two hardcoded cards
     const initialListEntries: ListEntry[] = [
-        {
-            title: "Hardcoded Card 1",
-            text: "This is the first hardcoded card",
-            creationDate: "2024-02-28", // Hardcoded creation date for demonstration
-            importance: 3
-        },
-        {
-            title: "Hardcoded Card 2",
-            text: "This is the second hardcoded card",
-            creationDate: "2024-02-28", // Hardcoded creation date for demonstration
-            importance: 2
+
+        {title: "",
+            text: "",
+            creationDate: "",
+            importance: 0
         }
     ];
 

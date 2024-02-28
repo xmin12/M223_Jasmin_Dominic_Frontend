@@ -1,11 +1,28 @@
-import auth from "../fixtures/auth.json";
+it("1. Admin can Sing-up and visit all pages and Log-out", () => {
+    const userInfo = {
+        firstName: "James",
+        lastName: "Bond",
+        email: "admin@example.com",
+        password: "1234",
+    };
 
-const { password } = auth.admin;
-const superAdminMail = auth.admin.email;
+    // Login
+    cy.visit("http://localhost:3000/login");
+    cy.get(`[data-cy="Login-Email"]`).click().type(userInfo.email);
+    cy.get(`[data-cy="Login-Password"]`).click().type(userInfo.password);
+    cy.get(`[data-cy="Login-Save-Button"]`).click();
+
+    //visit ListPage
+    cy.get(`[data-cy="lists-button"]`).click();
+    //visit AdminPage
+    cy.get(`[data-cy="admin-button"]`).click();
+    //Log-out
+    cy.wait(500)
+    cy.get(`[data-cy="Log-out-button"]`).click();
 
 
-it("Test Case 1: Admin can login and visit all pages", () => {
-    cy.login(superAdminMail, password);
-    cy.visit("/login");
-    cy.get(`[data-cy="Login-Email"]`).type('admin@')
+
 });
+
+
+

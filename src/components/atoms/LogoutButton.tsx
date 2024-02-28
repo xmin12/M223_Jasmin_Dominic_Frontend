@@ -12,7 +12,7 @@ const LogoutButton = () => {
     };
 
     return (
-        <Button color="inherit" onClick={handleLogout} startIcon={<LogoutIcon />}></Button>
+        <Button data-cy="Log-out-button"  color="inherit" onClick={handleLogout} startIcon={<LogoutIcon />}></Button>
     );
 }
 
