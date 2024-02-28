@@ -91,7 +91,10 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
             )}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseForm} color="primary">
+            <Button
+
+                onClick={handleCloseForm}
+                color="error">
               Cancel
             </Button>
           </DialogActions>

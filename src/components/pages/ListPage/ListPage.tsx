@@ -11,7 +11,22 @@ import ListService from '../../../Services/ListService';
 import SaveButton from "../../atoms/SaveButton";
 
 const ListPage: React.FC = () => {
-    const initialListEntries: ListEntry[] = [];
+    // Initialize two hardcoded cards
+    const initialListEntries: ListEntry[] = [
+        {
+            title: "Hardcoded Card 1",
+            text: "This is the first hardcoded card",
+            creationDate: "2024-02-28", // Hardcoded creation date for demonstration
+            importance: 3
+        },
+        {
+            title: "Hardcoded Card 2",
+            text: "This is the second hardcoded card",
+            creationDate: "2024-02-28", // Hardcoded creation date for demonstration
+            importance: 2
+        }
+    ];
+
     const [listEntries, setListEntries] = useState<ListEntry[]>(initialListEntries);
     const [showCreateForm, setShowCreateForm] = useState<boolean>(false);
 
@@ -47,6 +62,7 @@ const ListPage: React.FC = () => {
             console.error('Error creating list entry:', error);
         }
     };
+
 
     const handleCancel = () => {
         setNewEntry({ // Reset form fields
@@ -142,40 +158,49 @@ const ListPage: React.FC = () => {
                     </Box>
                 )}
                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        {listEntries.map((entry, index) => (
-                            <Card key={index} style={{ padding: 20, width: 400, margin: '10px auto' }}>
-                                <CardContent>
-                                    <Typography variant="h5" component="div">
-                                        {entry.title}
-                                    </Typography>
-                                    <Typography variant="body1" color="text.secondary">
-                                        {entry.text}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        Importance: {entry.importance}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button
-                                        size='small'
-                                        color='primary'
-                                        variant='contained'
-                                    >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        size='small'
-                                        color='error'
-                                        variant='contained'
-                                    >
-                                        Delete
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                        ))}
-                    </Box>
+                    {listEntries.length > 0 && (
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            {listEntries.map((entry, index) => (
+                                <Card key={index} style={{ padding: 20, width: 400, margin: '10px auto' }}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="div">
+                                            {entry.title}
+                                        </Typography>
+                                        <Typography variant="body1" color="text.secondary">
+                                            {entry.text}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            Creation Date: {entry.creationDate}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            Importance: {entry.importance}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button
+                                            size='small'
+                                            color='primary'
+                                            variant='contained'
+                                        >
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            size='small'
+                                            color='error'
+                                            variant='contained'
+                                        >
+                                            Delete
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            ))}
+                        </Box>
+                    )}
+                    {listEntries.length === 0 && (
+                        <Typography variant="body1">No entries available</Typography>
+                    )}
                 </Box>
+
             </Box>
         </>
     );

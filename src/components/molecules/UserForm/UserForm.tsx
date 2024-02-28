@@ -40,6 +40,7 @@ const UserForm = ({ user, submitActionHandler }: UserProps) => {
     enableReinitialize: true,
   });
 
+
   return (
       <>
         <form onSubmit={formik.handleSubmit}>
@@ -90,15 +91,6 @@ const UserForm = ({ user, submitActionHandler }: UserProps) => {
                 type='submit'
             >
               Save
-            </Button>
-            <Button
-                variant='contained'
-                color='error'
-                onClick={() => {
-                  navigate('/admin');
-                }}
-            >
-              Cancel
             </Button>
           </div>
         </form>

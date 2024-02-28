@@ -21,9 +21,9 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
   const paperStyle = {
     padding: 60,
-    height: '52vh',
+    height: '26vh',
     width: 280,
-    margin: '20px auto',
+    margin: '300px auto',
   };
   const btnstyle = { margin: '8px 0' };
   const navigate = useNavigate();
@@ -52,9 +52,6 @@ const Login = () => {
       <Paper elevation={10} style={paperStyle}>
         <Grid>
           <h2>Sign In</h2>
-          <p>Default login:</p>
-          <p>email: admin@example.com</p>
-          <p>pw: 1234</p>
         </Grid>
 
         <Formik
@@ -71,6 +68,7 @@ const Login = () => {
           {(props) => (
             <Form onSubmit={props.handleSubmit}>
               <TextField
+                  data-cy="Login-Email"
                 label='email'
                 id='email'
                 placeholder='Enter username'
@@ -86,6 +84,7 @@ const Login = () => {
               )}
 
               <TextField
+                  data-cy="Login-Password"
                 id='password'
                 label='password'
                 placeholder='Enter password'
@@ -101,6 +100,7 @@ const Login = () => {
               )}
 
               <Button
+                  data-cy="Login-Save-Button"
                 type='submit'
                 color='primary'
                 variant='contained'

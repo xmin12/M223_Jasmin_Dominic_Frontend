@@ -2,13 +2,10 @@ import { Route, Routes } from 'react-router-dom';
 import LoginPage from '../components/pages/LoginPage/LoginPage';
 import PrivateRoute from './PrivateRoute';
 import UserTable from '../components/pages/UserPage/UserTable';
-import UserPage from '../components/pages/UserPage/UserPage';
 import authorities from '../config/Authorities';
 import HomePage from "../components/pages/HomePage";
 import ListPage from "../components/pages/ListPage/ListPage";
 import AdminPage from "../components/pages/AdminPage/AdminPage";
-import UserEditPage from "../components/pages/UserPage/UserEditPage";
-import UserForm from "../components/molecules/UserForm/UserForm";
 
 /**
  * Router component renders a route switch with all available pages
@@ -26,7 +23,6 @@ const Router = () => {
         <Route path={'/'} element={<HomePage />} />
         <Route path={'/lists'} element={<ListPage/>} />
         <Route path={'/admin'} element={<AdminPage/>} />
-        <Route path={'/edit'} element={<UserEditPage/>} />
 
 
         <Route
@@ -38,7 +34,7 @@ const Router = () => {
         element={
           <PrivateRoute
             requiredAuths={[authorities.USER_DEACTIVATE, authorities.USER_CREATE]}
-            element={<UserPage />}
+            element={<AdminPage />}
           ></PrivateRoute>
         }
       />
@@ -47,7 +43,7 @@ const Router = () => {
         element={
           <PrivateRoute
             requiredAuths={[authorities.USER_READ]}
-            element={<UserPage />}
+            element={<AdminPage />}
           ></PrivateRoute>
         }
       />

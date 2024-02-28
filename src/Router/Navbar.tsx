@@ -2,13 +2,18 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import logo from '../logo1.png';
 import { useNavigate } from 'react-router-dom';
+import LogoutButton from "../components/atoms/LogoutButton";
+
 
 export default function Navbar() {
     const navigate = useNavigate();
-    const handleButtonClick = (path:string) => {
+
+    const handleButtonClick = (path: string) => {
         console.log('Navigating to:', path);
         navigate(path); // Navigate to the specified path
     };
+
+
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -21,6 +26,7 @@ export default function Navbar() {
                     <Button color="inherit" onClick={() => handleButtonClick('/')}>Home</Button>
                     <Button color="inherit" onClick={() => handleButtonClick('/lists')}>Lists</Button>
                     <Button color="inherit" onClick={() => handleButtonClick('/admin')}>Admin</Button>
+                    <LogoutButton/>
                 </Toolbar>
             </AppBar>
         </Box>
