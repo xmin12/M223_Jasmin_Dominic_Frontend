@@ -1,7 +1,78 @@
-# uk223 Skeleton
+# Project M223 Group 6
 
-homepage: http://localhost:3000
-login: http://localhost:3000/login
-user component: http://localhost:3000/users
+The goal of our project was to create a full-stack multi-user application using Spring Boot and React.
 
-## Components
+## Tooling
+For the tooling, we use and recommend having the following installed:
+
+- Docker for providing the PostgreSQL database.
+- Java installed and ready to use.
+- Gradle installed for building our backend.
+- For test purposes, Postman is strongly recommended.
+- DBeaver for inspecting the database.
+
+## Setup Frontend
+
+**1. Clone the repository:**
+
+In your project directory, open a terminal and run the following command:
+
+```
+git clone https://bitbucket.org/nypag/react_frontend.git
+```
+
+**2. Install Yarn (as the package manager):**
+
+In your project directory, run the following command:
+
+```
+yarn install
+```
+
+**3. Deploying the Webserver:**
+
+In your project directory, run the following command:
+
+```
+yarn run
+```
+
+This should automatically open your browser with our page.
+
+## Setup Backend
+
+**1. Clone the repository:**
+
+```
+git clone https://bitbucket.org/nypag/spring_backend.git
+```
+
+**2. Create the Docker container:**
+
+Run this command in your terminal to create and run your Docker container containing the PostgreSQL database. Make sure you have Docker installed and running (you can check by executing `docker -v` in your Windows terminal).
+
+```
+docker run --name postgres_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+```
+
+**3. Run the Project:**
+
+Execute the following Gradle task in your project directory:
+
+```
+./gradlew bootRun
+```
+
+Now you are all set up. Enjoy!
+
+## User Credentials (Test Purposes)
+
+In order to test the application, use the following credentials:
+
+- User:
+    - Email: user@example.com
+    - Password: 1234
+- Admin:
+    - Email: admin@example.com
+    - Password: 1234
+
