@@ -77,3 +77,5 @@ In order to test the application, use the following credentials:
     - Email: admin@example.com
     - Password: 1234
 
+At the end we Tested our application with Lighthouse and this is the resultat:
+![Screenshot 2024-02-29 160753](https://github.com/doeme07/M223_Jasmin_Dominic_Frontend/assets/112725311/bbd7d84f-ff50-439a-9480-a30e7abc51c7)
