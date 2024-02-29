@@ -121,7 +121,7 @@ export const ActiveUserContextProvider = ({
     // If a token is present send a logout-request and clear the localStorage afterwards
     api.get("/logout").finally(resetAuthorization);
     //navigate to login page
-    navigate("/login");
+    navigate("/");
   };
 
   /**

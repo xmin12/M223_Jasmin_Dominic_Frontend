@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Box } from '@mui/system';
 import Navbar from "../../../Router/Navbar";
 import Card from "@mui/material/Card";
@@ -25,6 +25,7 @@ const ListPage: React.FC = () => {
             id: ""
         }
     });
+    const [filterValue, setFilterValue] = useState<number | null>(null); // State for the filter value
 
     // Access the ActiveUserContext
     const { user } = useContext(ActiveUserContext);
@@ -67,10 +68,24 @@ const ListPage: React.FC = () => {
     };
     const handleDelete = async (id: string) => {
         try {
-            await ListService.deleteListEntry(id);
-            // Remove the deleted entry from the state
-            setListEntries(prevState => prevState.filter(entry => entry.id !== id));
-            console.log('Entry deleted successfully');
+            const entryToDelete = listEntries.find(entry => entry.id === id);
+            if (!entryToDelete) {
+                console.error('Entry not found');
+                return;
+            }
+            console.log("",entryToDelete.user.id)
+            console.log("",id)
+            console.log("",listEntries)
+            // Check if the user owns the entry before deleting
+
+                await ListService.deleteListEntry(id);
+                console.log("hallo")
+                // Remove the deleted entry from the state
+                setListEntries(prevState => prevState.filter(entry => entry.id !== id));
+                console.log('Entry deleted successfully');
+
+
+
         } catch (error) {
             console.error('Error deleting entry:', error);
         }
@@ -95,6 +110,21 @@ const ListPage: React.FC = () => {
         });
         setShowCreateForm(false);
         setIsEditing(false);
+    };
+
+    // Filter list entries based on the selected importance
+    const filteredListEntries = filterValue !== null ? listEntries.filter(entry => entry.importance === filterValue) : listEntries;
+
+    // Sort list entries by importance in ascending order
+    const sortAscending = () => {
+        const sortedEntries = [...listEntries].sort((a, b) => a.importance - b.importance);
+        setListEntries(sortedEntries);
+    };
+
+    // Sort list entries by importance in descending order
+    const sortDescending = () => {
+        const sortedEntries = [...listEntries].sort((a, b) => b.importance - a.importance);
+        setListEntries(sortedEntries);
     };
 
     useEffect(() => {
@@ -124,6 +154,20 @@ const ListPage: React.FC = () => {
                 >
                     <AddIcon />
                 </IconButton>
+                <Box>
+                <Button
+                    data-cy="List-sort-ascending-button"
+                    onClick={() => sortAscending()} // Sort by importance in ascending order
+                >
+                    Sort Ascending
+                </Button>
+                <Button
+                    data-cy="List-sort-descending-button"
+                    onClick={() => sortDescending()} // Sort by importance in descending order
+                >
+                    Sort Descending
+                </Button>
+                </Box>
                 {showCreateForm && (
                     <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                         <Card style={{ padding: 20, width: 400 }}>
@@ -188,12 +232,11 @@ const ListPage: React.FC = () => {
                 )}
 
                 <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                    {listEntries.length > 0 ? (
+                    {filteredListEntries.length > 0 ? (
                         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            {listEntries.map((entry, index) => (
+                            {filteredListEntries.map((entry, index) => (
                                 <Card key={index} style={{ padding: 20, width: 320, margin: '10px auto' }}>
                                     <CardContent>
-                                        {/* Display labels for Title, Text, and Importance */}
                                         <Typography variant="body1" component="div">
                                             <strong>Title:</strong> {entry.title}
                                         </Typography>
@@ -204,7 +247,7 @@ const ListPage: React.FC = () => {
                                             <strong>Importance:</strong> {entry.importance}
                                         </Typography>
                                     </CardContent>
-                                    <CardActions sx={{ justifyContent: 'center' }}> {/* Aligning buttons to center */}
+                                    <CardActions sx={{ justifyContent: 'center' }}>
                                         <Button
                                             data-cy="List-edit-button"
                                             size='small'
@@ -231,8 +274,6 @@ const ListPage: React.FC = () => {
                         <Typography variant="body1">No entries available</Typography>
                     )}
                 </Box>
-
-
             </Box>
         </>
     );

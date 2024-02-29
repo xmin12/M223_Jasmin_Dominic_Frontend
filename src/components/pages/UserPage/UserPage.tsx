@@ -43,12 +43,8 @@ const UserPage = () => {
     }
   };
 
-  return (
-      <UserForm
-          user={{ id: '', firstName: '', lastName: '', email: '', roles: [] }}
-          submitActionHandler={submitActionHandler}
-      />
-  );
+  return <UserForm user={user} submitActionHandler={submitActionHandler} />;
+
 };
 
 export default UserPage;

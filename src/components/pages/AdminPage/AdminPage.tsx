@@ -58,7 +58,6 @@ const AdminPage = () => {
                             alt='logo'
                         />
                     </Box>
-                    <UserPage/>
                 </div>
             )}
         </>

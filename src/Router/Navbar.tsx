@@ -23,7 +23,7 @@ export default function Navbar() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Noser Young
                     </Typography>
-                    <Button data-cy="home-button" color="inherit" onClick={() => handleButtonClick('/')}>Home</Button>
+                    <Button data-cy="home-button" color="inherit" onClick={() => handleButtonClick('/home')}>Home</Button>
                     <Button data-cy="lists-button" color="inherit" onClick={() => handleButtonClick('/lists')}>Lists</Button>
                     <Button data-cy="admin-button" color="inherit" onClick={() => handleButtonClick('/admin')}>Admin</Button>
                     <LogoutButton/>

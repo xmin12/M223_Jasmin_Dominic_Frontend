@@ -33,7 +33,7 @@ const Login = () => {
     login(values.email.toLowerCase(), values.password)
       .then(() => {
         console.log(values);
-        navigate('/');
+        navigate('/home');
       })
       .catch((error) => {
         if (

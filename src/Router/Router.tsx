@@ -19,8 +19,8 @@ const Router = () => {
   return (
     <Routes>
 
-      <Route path={'/login'} element={<LoginPage />} />
-        <Route path={'/'} element={<HomePage />} />
+      <Route path={'/home'} element={<HomePage />} />
+        <Route path={'/'} element={<LoginPage />} />
         <Route path={'/lists'} element={<ListPage/>} />
         <Route path={'/admin'} element={<AdminPage/>} />
 
@@ -28,6 +28,7 @@ const Router = () => {
             path={'/users'}
             element={<PrivateRoute requiredAuths={[]} element={<UserTable onEdit={() => {}} submitActionHandler={() => {}} />} />}
         />
+
 
         <Route
         path='/useredit'
