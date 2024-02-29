@@ -94,9 +94,9 @@ const UserTable: React.FC<UserTableProps> = ({onEdit}) => {
                 <div key={user.id}>
                     <Card sx={{minWidth: 275}}>
                         <CardContent>
-                            <div data-cy="user-firstname-field">{user.firstName}</div>
-                            <div data-cy="user-lastname-field">{user.lastName}</div>
-                            <div data-cy="user-email-field">{user.email}</div>
+                            <div data-cy="user-firstname-field">Firstname: {user.firstName}</div>
+                            <div data-cy="user-lastname-field">Lastname: {user.lastName}</div>
+                            <div data-cy="user-email-field">Email: {user.email}</div>
                             <CardActions>
                                 <Button
                                     data-cy="Admin-edit-button"
