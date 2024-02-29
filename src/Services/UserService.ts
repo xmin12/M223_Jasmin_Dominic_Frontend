@@ -8,7 +8,6 @@ const UserService = {
   },
 
   updateUser: (user: User) => {
-    console.log("",user)
     return api.put(`/user/${user.id}`, user);
   },
 

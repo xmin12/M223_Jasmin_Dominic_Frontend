@@ -15,8 +15,10 @@ const ListService = {
 
     updateListEntry: async (listEntry: ListEntry): Promise<ListEntry> => {
         try {
+            console.log(listEntry)
             const response = await api.put(`${baseURL}/${listEntry.id}`, listEntry);
             return response.data;
+
         } catch (error) {
             throw new Error('Failed to update list entry');
         }

@@ -77,6 +77,7 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
     return (
         <>
             <Button
+                data-cy="Admin-add-button"
                 size='small'
                 color='success'
                 variant='contained'
@@ -88,7 +89,9 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
                 <div key={user.id}>
                     <Card sx={{ minWidth: 275 }}>
                         <CardContent>
-                            {user.firstName} {user.lastName} {user.email}
+                            <div data-cy="user-firstname-field">{user.firstName}</div>
+                            <div data-cy="user-lastname-field">{user.lastName}</div>
+                            <div data-cy="user-email-field">{user.email}</div>
                             <CardActions>
                                 <Button
                                     data-cy="Admin-edit-button"
@@ -113,7 +116,9 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
                     </Card>
                 </div>
             ))}
-            <Dialog open={openDialog} onClose={handleCloseDialog}>
+            <Dialog open={openDialog} onClose={handleCloseDialog}
+                    sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '200px', width: '400px', maxHeight: '500px', overflowY: 'auto' // Example minimum height
+            }}>
                 <DialogTitle>Create New User</DialogTitle>
                 <DialogContent>
                     <UserForm user={{ id: '', firstName: '', lastName: '', email: '', roles: [] }} submitActionHandler={handleCreateUser} />
@@ -124,7 +129,8 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Dialog open={Boolean(editingUser)} onClose={handleCloseForm}>
+            <Dialog open={Boolean(editingUser)} onClose={handleCloseForm} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '200px', width: '400px', maxHeight: '500px', overflowY: 'auto' // Example minimum height
+            }}>
                 <DialogTitle>Edit User</DialogTitle>
                 <DialogContent>
                     {editingUser && (

@@ -29,7 +29,6 @@ const PrivateRoute: React.FC<Props> = ({
   const isLoggedIn = () => {
     let tokenString = localStorage.getItem('token');
     if (!tokenString) {
-      console.error('no token found');
       return false;
     }
     tokenString = tokenString.replace('Bearer ', '');
