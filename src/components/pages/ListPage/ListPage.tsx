@@ -1,12 +1,12 @@
-import { useState, useEffect, useContext } from 'react';
-import { Box } from '@mui/system';
+import {useState, useEffect, useContext} from 'react';
+import {Box} from '@mui/system';
 import Navbar from "../../../Router/Navbar";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, TextField, IconButton, CardActions } from '@mui/material';
+import {Button, TextField, IconButton, CardActions} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { ListEntry } from '../../../types/models/ListEntry.model';
+import {ListEntry} from '../../../types/models/ListEntry.model';
 import ListService from '../../../Services/ListService';
 import SaveButton from "../../atoms/SaveButton";
 import ActiveUserContext from "../../../Contexts/ActiveUserContext";
@@ -28,10 +28,10 @@ const ListPage: React.FC = () => {
     const [filterValue, setFilterValue] = useState<number | null>(null); // State for the filter value
 
     // Access the ActiveUserContext
-    const { user } = useContext(ActiveUserContext);
+    const {user} = useContext(ActiveUserContext);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setNewEntry(prevState => ({
             ...prevState,
             [name]: value
@@ -40,8 +40,27 @@ const ListPage: React.FC = () => {
 
     const handleSubmit = async () => {
         try {
+            // Validation for title (2 to 5 characters)
+            if (newEntry.title.length < 2 || newEntry.title.length > 5) {
+                alert('Title must be between 2 and 5 characters.');
+                return;
+            }
+
+            // Validation for text (5 to 100 characters)
+            if (newEntry.text.length < 5 || newEntry.text.length > 100) {
+                alert('Text must be between 5 and 100 characters.');
+                return;
+            }
+
+            // Validation for importance (1 to 5)
+            if (newEntry.importance < 1 || newEntry.importance > 5) {
+                alert('Importance must be between 1 and 5.');
+                return;
+            }
+
+            // Proceed with submitting the form if validation passes
             const currentDate = new Date().toISOString().split('T')[0];
-            const updatedEntry = { ...newEntry, creationDate: currentDate, user: { id: user?.id || '' } }; // Save active user's ID
+            const updatedEntry = {...newEntry, creationDate: currentDate, user: {id: user?.id || ''}};
             if (isEditing) {
                 const editedEntries = [...listEntries];
                 editedEntries[editIndex] = updatedEntry;
@@ -62,32 +81,24 @@ const ListPage: React.FC = () => {
             });
             setShowCreateForm(false);
         } catch (error) {
-            console.error('Error adding list entry:', error);
+
             alert('Failed to add list entry. Please try again.');
         }
     };
+
     const handleDelete = async (id: string) => {
         try {
             const entryToDelete = listEntries.find(entry => entry.id === id);
             if (!entryToDelete) {
-                console.error('Entry not found');
                 return;
             }
-            console.log("",entryToDelete.user.id)
-            console.log("",id)
-            console.log("",listEntries)
             // Check if the user owns the entry before deleting
 
-                await ListService.deleteListEntry(id);
-                console.log("hallo")
-                // Remove the deleted entry from the state
-                setListEntries(prevState => prevState.filter(entry => entry.id !== id));
-                console.log('Entry deleted successfully');
-
-
-
+            await ListService.deleteListEntry(id);
+            // Remove the deleted entry from the state
+            setListEntries(prevState => prevState.filter(entry => entry.id !== id));
         } catch (error) {
-            console.error('Error deleting entry:', error);
+
         }
     };
 
@@ -133,7 +144,7 @@ const ListPage: React.FC = () => {
                 const entries = await ListService.getAllListEntries();
                 setListEntries(entries);
             } catch (error) {
-                console.error('Error fetching list entries:', error);
+
             }
         };
         fetchListEntries();
@@ -141,8 +152,8 @@ const ListPage: React.FC = () => {
 
     return (
         <>
-            <Navbar />
-            <Box sx={{ textAlign: 'center' }}>
+            <Navbar/>
+            <Box sx={{textAlign: 'center'}}>
                 <h1>Lists</h1>
                 <IconButton
                     data-cy="List-create-button"
@@ -152,25 +163,25 @@ const ListPage: React.FC = () => {
                     }}
                     color="primary"
                 >
-                    <AddIcon />
+                    <AddIcon/>
                 </IconButton>
                 <Box>
-                <Button
-                    data-cy="List-sort-ascending-button"
-                    onClick={() => sortAscending()} // Sort by importance in ascending order
-                >
-                    Sort Ascending
-                </Button>
-                <Button
-                    data-cy="List-sort-descending-button"
-                    onClick={() => sortDescending()} // Sort by importance in descending order
-                >
-                    Sort Descending
-                </Button>
+                    <Button
+                        data-cy="List-sort-ascending-button"
+                        onClick={() => sortAscending()} // Sort by importance in ascending order
+                    >
+                        Sort Ascending
+                    </Button>
+                    <Button
+                        data-cy="List-sort-descending-button"
+                        onClick={() => sortDescending()} // Sort by importance in descending order
+                    >
+                        Sort Descending
+                    </Button>
                 </Box>
                 {showCreateForm && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                        <Card style={{ padding: 20, width: 400 }}>
+                    <Box sx={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
+                        <Card style={{padding: 20, width: 400}}>
                             <CardContent>
                                 <TextField
                                     data-cy="List-title-field"
@@ -205,9 +216,9 @@ const ListPage: React.FC = () => {
                                     placeholder="Importance (1-5)"
                                     value={newEntry.importance.toString()}
                                     onChange={handleChange}
-                                    inputProps={{ min: "1", max: "5" }}
+                                    inputProps={{min: "1", max: "5"}}
                                 />
-                                <CardActions sx={{ justifyContent: 'center' }}>
+                                <CardActions sx={{justifyContent: 'center'}}>
                                     <SaveButton
                                         data-cy="List-save-button"
                                         variant="contained"
@@ -231,11 +242,11 @@ const ListPage: React.FC = () => {
                     </Box>
                 )}
 
-                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                <Box sx={{display: 'flex', justifyContent: 'center', marginTop: '20px'}}>
                     {filteredListEntries.length > 0 ? (
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             {filteredListEntries.map((entry, index) => (
-                                <Card key={index} style={{ padding: 20, width: 320, margin: '10px auto' }}>
+                                <Card key={index} style={{padding: 20, width: 320, margin: '10px auto'}}>
                                     <CardContent>
                                         <Typography variant="body1" component="div">
                                             <strong>Title:</strong> {entry.title}
@@ -247,7 +258,7 @@ const ListPage: React.FC = () => {
                                             <strong>Importance:</strong> {entry.importance}
                                         </Typography>
                                     </CardContent>
-                                    <CardActions sx={{ justifyContent: 'center' }}>
+                                    <CardActions sx={{justifyContent: 'center'}}>
                                         <Button
                                             data-cy="List-edit-button"
                                             size='small'

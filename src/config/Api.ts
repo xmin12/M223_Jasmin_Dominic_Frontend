@@ -41,9 +41,7 @@ api.interceptors.request.use((request) => {
   if (isDev() && request.method) {
     const info = `REQUEST ${request.method.toLocaleUpperCase()} ${request.url}`;
     if (request.method.toLocaleLowerCase() === "get") {
-      console.debug(info);
     } else {
-      console.debug(info, request.data);
     }
   }
   return request;

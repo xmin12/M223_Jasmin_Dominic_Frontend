@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardActions, CardContent, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {Card, CardActions, CardContent, Button, Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material';
 import UserService from '../../../Services/UserService';
-import { User } from '../../../types/models/User.model';
+import {User} from '../../../types/models/User.model';
 import UserForm from "../../molecules/UserForm/UserForm";
-import { useNavigate } from "react-router-dom";
+
 
 interface UserTableProps {
     onEdit: (user: User) => void; // Define the onEdit prop
     submitActionHandler: (newUser: User) => void;
 }
 
-const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
+const UserTable: React.FC<UserTableProps> = ({onEdit}) => {
     const [users, setUsers] = useState<User[]>([]);
     const [editingUser, setEditingUser] = useState<User | null>(null);
     const [openDialog, setOpenDialog] = useState(false); // State to control the dialog
@@ -52,7 +52,7 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
                     handleCloseForm();
                 })
                 .catch((error) => {
-                    console.error('Error updating user:', error);
+
                     // Handle error as needed
                 });
         }
@@ -63,17 +63,22 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
     };
 
     const handleCreateUser = (newUser: User) => {
+        // Check if a user with the same email already exists
+        const existingUser = users.find(user => user.email === newUser.email);
+        if (existingUser) {
+            alert('A user with the same email already exists.');
+            return;
+        }
+
         UserService.addUser(newUser)
             .then((createdUser) => {
                 setUsers([...users, createdUser]); // Add the new user to the list
                 handleCloseDialog();
             })
             .catch((error) => {
-                console.error('Error creating user:', error);
                 // Handle error as needed
             });
     };
-
     return (
         <>
             <Button
@@ -87,7 +92,7 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
             </Button>
             {users.map((user) => (
                 <div key={user.id}>
-                    <Card sx={{ minWidth: 275 }}>
+                    <Card sx={{minWidth: 275}}>
                         <CardContent>
                             <div data-cy="user-firstname-field">{user.firstName}</div>
                             <div data-cy="user-lastname-field">{user.lastName}</div>
@@ -117,11 +122,19 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
                 </div>
             ))}
             <Dialog open={openDialog} onClose={handleCloseDialog}
-                    sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '200px', width: '400px', maxHeight: '500px', overflowY: 'auto' // Example minimum height
-            }}>
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minHeight: '200px',
+                        width: '400px',
+                        maxHeight: '500px',
+                        overflowY: 'auto' // Example minimum height
+                    }}>
                 <DialogTitle>Create New User</DialogTitle>
                 <DialogContent>
-                    <UserForm user={{ id: '', firstName: '', lastName: '', email: '', roles: [] }} submitActionHandler={handleCreateUser} />
+                    <UserForm user={{id: '', firstName: '', lastName: '', email: '', roles: []}}
+                              submitActionHandler={handleCreateUser}/>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseDialog} color="error">
@@ -129,7 +142,14 @@ const UserTable: React.FC<UserTableProps> = ({ onEdit }) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Dialog open={Boolean(editingUser)} onClose={handleCloseForm} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '200px', width: '400px', maxHeight: '500px', overflowY: 'auto' // Example minimum height
+            <Dialog open={Boolean(editingUser)} onClose={handleCloseForm} sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '200px',
+                width: '400px',
+                maxHeight: '500px',
+                overflowY: 'auto' // Example minimum height
             }}>
                 <DialogTitle>Edit User</DialogTitle>
                 <DialogContent>

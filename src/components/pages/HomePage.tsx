@@ -1,13 +1,14 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import {Box} from '@mui/material';
 import logo from '../../logo1.png';
 import Navbar from "../../Router/Navbar";
+
 export default function HomePage() {
 
 
     return (
         <Box>
-         <Navbar/>
+            <Navbar/>
             <Box
                 style={{padding: '130px'}}
                 display='flex'

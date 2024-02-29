@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import LoginPage from '../components/pages/LoginPage/LoginPage';
 import PrivateRoute from './PrivateRoute';
 import UserTable from '../components/pages/UserPage/UserTable';
@@ -12,46 +12,48 @@ import AdminPage from "../components/pages/AdminPage/AdminPage";
  */
 
 const Router = () => {
-  //const { checkRole } = useContext(ActiveUserContext);
+    //const { checkRole } = useContext(ActiveUserContext);
 
-  /** navigate to different "home"-locations depending on Role the user have */
+    /** navigate to different "home"-locations depending on Role the user have */
 
-  return (
-    <Routes>
+    return (
+        <Routes>
 
-      <Route path={'/home'} element={<HomePage />} />
-        <Route path={'/'} element={<LoginPage />} />
-        <Route path={'/lists'} element={<ListPage/>} />
-        <Route path={'/admin'} element={<AdminPage/>} />
+            <Route path={'/home'} element={<HomePage/>}/>
+            <Route path={'/'} element={<LoginPage/>}/>
+            <Route path={'/lists'} element={<ListPage/>}/>
+            <Route path={'/admin'} element={<AdminPage/>}/>
 
-        <Route
-            path={'/users'}
-            element={<PrivateRoute requiredAuths={[]} element={<UserTable onEdit={() => {}} submitActionHandler={() => {}} />} />}
-        />
+            <Route
+                path={'/users'}
+                element={<PrivateRoute requiredAuths={[]} element={<UserTable onEdit={() => {
+                }} submitActionHandler={() => {
+                }}/>}/>}
+            />
 
 
-        <Route
-        path='/useredit'
-        element={
-          <PrivateRoute
-            requiredAuths={[authorities.USER_DEACTIVATE, authorities.USER_CREATE]}
-            element={<AdminPage />}
-          ></PrivateRoute>
-        }
-      />
-      <Route
-        path='/useredit/:userId'
-        element={
-          <PrivateRoute
-            requiredAuths={[authorities.USER_READ]}
-            element={<AdminPage />}
-          ></PrivateRoute>
-        }
-      />
+            <Route
+                path='/useredit'
+                element={
+                    <PrivateRoute
+                        requiredAuths={[authorities.USER_DEACTIVATE, authorities.USER_CREATE]}
+                        element={<AdminPage/>}
+                    ></PrivateRoute>
+                }
+            />
+            <Route
+                path='/useredit/:userId'
+                element={
+                    <PrivateRoute
+                        requiredAuths={[authorities.USER_READ]}
+                        element={<AdminPage/>}
+                    ></PrivateRoute>
+                }
+            />
 
-      <Route path='*' element={<div>Not Found</div>} />
-    </Routes>
-  );
+            <Route path='*' element={<div>Not Found</div>}/>
+        </Routes>
+    );
 };
 
 export default Router;
