@@ -7,7 +7,9 @@ interface SaveButtonProps extends ButtonProps {
 
 const SaveButton: React.FC<SaveButtonProps> = ({ onClick, children, ...otherProps }) => {
     return (
-        <Button onClick={onClick} {...otherProps}>
+        <Button
+            onClick={onClick}
+            {...otherProps}>
             {children}
         </Button>
     );

@@ -5,6 +5,7 @@ import Navbar from "../../../Router/Navbar";
 import UserTable from "../UserPage/UserTable";
 import { User } from "../../../types/models/User.model";
 import logo from "../../../logo1.png";
+import UserPage from "../UserPage/UserPage";
 
 
 // Define the AdminPage component
@@ -28,9 +29,10 @@ const AdminPage = () => {
                                 Logged in as: {user.firstName} {user.lastName} ({user.email})
                             </Typography>
                         )}
-                        <div style={{ margin: '0 auto', width: '80%', padding: '40px' }}>
-                            <UserTable onEdit={(user: User) => console.log(user)} />
-                        </div>
+                        <UserTable
+                            onEdit={(user: User) => console.log(user)}
+                            submitActionHandler={() => {}} // Empty function
+                        />
                     </div>
                 </>
             ) : (
@@ -56,6 +58,7 @@ const AdminPage = () => {
                             alt='logo'
                         />
                     </Box>
+                    <UserPage/>
                 </div>
             )}
         </>

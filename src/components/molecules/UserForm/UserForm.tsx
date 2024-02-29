@@ -46,6 +46,7 @@ const UserForm = ({ user, submitActionHandler }: UserProps) => {
         <form onSubmit={formik.handleSubmit}>
           <Box sx={{ paddingTop: '15px' }}>
             <TextField
+                data-cy="Userform-firstname-field"
                 id='firstName'
                 label='Firstname'
                 variant='outlined'
@@ -59,6 +60,7 @@ const UserForm = ({ user, submitActionHandler }: UserProps) => {
                 <div style={{ color: 'red' }}>{formik.errors.firstName}</div>
             ) : null}
             <TextField
+                data-cy="Userform-lastname-field"
                 id='lastName'
                 label='Lastname'
                 variant='outlined'
@@ -72,6 +74,7 @@ const UserForm = ({ user, submitActionHandler }: UserProps) => {
                 <div style={{ color: 'red' }}>{formik.errors.lastName}</div>
             ) : null}
             <TextField
+                data-cy="Userform-email-field"
                 id='email'
                 label='E-Mail'
                 variant='outlined'
@@ -86,6 +89,7 @@ const UserForm = ({ user, submitActionHandler }: UserProps) => {
           </Box>
           <div>
             <Button
+                data-cy="Userform-save-button"
                 variant='contained'
                 color='success'
                 type='submit'

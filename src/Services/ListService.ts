@@ -22,20 +22,12 @@ const ListService = {
         }
     },
 
-    addListEntry: async (listEntry: ListEntry) => {
+    addListEntry: async (listEntry : ListEntry) => {
         try {
-            // Retrieve the authentication token from local storage
-            const authToken = localStorage.getItem('authToken');
-
-            // Make a POST request to the backend API with the authorization header
-            const response = await api.post(baseURL, listEntry, {
-                headers: {
-                    Authorization: `Bearer ${authToken}` // Include the authentication token in the headers
-                }
-            });
+            const response = await api.post<ListEntry>(baseURL, listEntry);
             return response.data;
         } catch (error) {
-            throw new Error('Failed to add list entry'); // Throw an error if adding list entry fails
+            throw new Error('Failed to add list entry');
         }
     },
 

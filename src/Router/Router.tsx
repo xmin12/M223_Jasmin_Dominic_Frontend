@@ -24,12 +24,12 @@ const Router = () => {
         <Route path={'/lists'} element={<ListPage/>} />
         <Route path={'/admin'} element={<AdminPage/>} />
 
+        <Route
+            path={'/users'}
+            element={<PrivateRoute requiredAuths={[]} element={<UserTable onEdit={() => {}} submitActionHandler={() => {}} />} />}
+        />
 
         <Route
-        path={'/users'}
-        element={<PrivateRoute requiredAuths={[]} element={<UserTable onEdit={() => {}} />} />}
-      />
-      <Route
         path='/useredit'
         element={
           <PrivateRoute
