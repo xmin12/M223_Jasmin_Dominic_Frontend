@@ -20,6 +20,7 @@
     "array-move": "^2.2.1",
     "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
+    "caniuse-lite": "1.0.30001632",
     "classnames": "^2.2.6",
     "clsx": "^1.1.1",
     "create-react-app": "^3.4.1",
@@ -84,5 +85,8 @@
     "fallback": {
       "crypto": "require.resolve('crypto-js')"
     }
+  },
+  "resolutions": {
+    "caniuse-lite": "1.0.30001632"
   }
 }
