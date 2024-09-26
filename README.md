@@ -19,7 +19,7 @@ For the tooling, we use and recommend having the following installed:
 In your project directory, open a terminal and run the following command:
 
 ```
-git clone https://bitbucket.org/nypag/react_frontend.git
+git clone https://github.com/doeme07/M223_Jasmin_Dominic_Frontend.git
 ```
 
 **2. Install Yarn (as the package manager):**
@@ -45,7 +45,7 @@ This should automatically open your browser with our page.
 **1. Clone the repository:**
 
 ```
-git clone https://bitbucket.org/nypag/spring_backend.git
+git clone https://github.com/doeme07/M223_Jasmin_Dominic_Backend.git
 ```
 
 **2. Create the Docker container:**
